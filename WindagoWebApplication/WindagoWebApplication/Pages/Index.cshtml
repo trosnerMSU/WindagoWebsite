@@ -1,0 +1,97 @@
+﻿@page
+@using System.Web;
+@model IndexModel
+@{
+    ViewData["Title"] = "Home page";
+}
+
+@*Scripts and styling*@
+<script src="js/site.js"></script>
+<style src="css/style.scss"></style>
+
+@*This is for vector images*@
+<div class="text-center">
+
+    <h1 class="display-4">Welcome</h1>
+    <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+
+
+    @{
+        string queryStr = "0";
+        try {
+
+            string query = Convert.ToString(this.Request.Query);
+            queryStr = HttpUtility.ParseQueryString(query).Get("Param1");
+            //Grab query parameters here
+
+        } catch(Exception) { }
+    }
+
+    <script type="text/javascript">
+        function redirect(url){
+            window.redirect(url);
+        }
+    </script>
+
+
+    <div class="buttonContainer">
+
+        @*<div class="menu-buttons row-cols-1">
+        <button class="blob-btn">
+        Meet The Band
+        <span class="blob-btn_inner">
+        <span class="blob-btn_blobs">
+        <span class="blob-btn_blob"></span>
+        <span class="blob-btn_blob"></span>
+        <span class="blob-btn_blob"></span>
+        <span class="blob-btn_blob"></span>
+        </span>
+        </span>
+        </button>
+        </div>*@
+        <div style="display:inline">
+            <button class="button" id="btnEvents"><a asp-page="/Events"><span>Events</span></a></button>
+        </div>
+        <div style="display:inline">
+            <button class="button" id="btnSocial"><a asp-page="/Social"><span>Social</span></a></button>
+        </div>
+        <div style="display:inline">
+            <button class="button" id="btnStore"><a asp-page="/Store"><span>Store</span></a></button>
+        </div>
+
+        @*<div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
+        <ul class="navbar-nav flex-grow-1">
+        <li class="nav-item">
+        <a class="button" asp-area="Events" asp-page="/Index">Events</a>
+        </li>
+        <li class="nav-item">
+        <a class="button" asp-area="" asp-page="/Social">Social</a>
+        </li>
+        <li class="nav-item">
+        <a class="button" asp-area="" asp-page="/Store">Store</a>
+        </li>
+        </ul>
+        </div>*@
+
+        <div>
+            @{
+                if(queryStr == null)
+                    queryStr = "0";
+            }
+            @if(queryStr == "1") {
+                <p>TESTING TRUE</p>
+            } else {
+                <p>TESTING FAIL</p>
+            }
+            <p>@showMe()</p>
+        </div>
+
+        @{
+            string showMe() {
+                return "TEST! SHOW ME! " + queryStr;
+            }
+        }
+
+    </div>
+
+</div>
